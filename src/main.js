@@ -1,20 +1,16 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-import { fetchImages } from './js/pixabay-api.js';
+import { loadImages } from './js/pixabay-api.js';
 import { clearGallery, hideLoader, renderGallery, showLoader } from './js/render-functions.js';
 
 const form = document.querySelector('.form');
 
-function getIziToastErrorOptions(message) {
+function toastErrorOptions(message) {
   return ({
-    icon: 'fa-solid fa-circle-exclamation',
-    iconColor: 'white',
-    message: `${message}`,
-    messageColor: 'white',
+    progressBar: false,
     position: 'topRight',
-    timeout: 3000,
-    color: '#EF4040',
-    maxWidth: '432px'
+    animateInside: false,
+    message: `${message}`
   });
 }
 
@@ -24,7 +20,7 @@ form.addEventListener('submit', async (e) => {
   const query = form.elements.query.value.trim();
 
   if (!query) {
-    iziToast.show(getIziToastErrorOptions('Please enter a search query!'));
+    iziToast.show(toastErrorOptions('Please enter a search query!'));
     return;
   }
 
@@ -32,16 +28,16 @@ form.addEventListener('submit', async (e) => {
   showLoader();
 
   try {
-    const images = await fetchImages(query);
+    const images = await loadImages(query);
 
     if (!images.length) {
-      iziToast.show(getIziToastErrorOptions('Sorry, there are no images matching your search query. Please try again!'));
+      iziToast.show(toastErrorOptions('Sorry, there are no images matching your search query. Please try again!'));
       return;
     }
 
     renderGallery(images);
   } catch (error) {
-    iziToast.show(getIziToastErrorOptions('Something went wrong. Please try again later.'));
+    iziToast.show(toastErrorOptions('Something went wrong. Please try again later.'));
   } finally {
     hideLoader();
   }
