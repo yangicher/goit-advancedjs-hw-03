@@ -2,19 +2,16 @@ const API_KEY = '50706028-1c89dce29f588a1d4e8ec62d3';
 const BASE_URL = 'https://pixabay.com/api';
 
 export function loadImages(query) {
-  const searchParams = {
+  const params = new URLSearchParams({
     key: API_KEY,
     q: query,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: 'true',
-  };
-
-  console.log(BASE_URL);
-  console.log(searchParams);
+  });
 
   return axios
-    .get(BASE_URL, { params: searchParams })
+    .get(`${BASE_URL}?${params}`)
     .then(response => {
       const { hits } = response.data;
       if (!hits.length) {
