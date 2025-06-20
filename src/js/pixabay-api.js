@@ -10,6 +10,9 @@ export function loadImages(query) {
     safesearch: 'true',
   });
 
+  console.log('Fetching URL: ', url);
+  console.log(`${BASE_URL}?${params}`);
+
   return fetch(`${BASE_URL}?${params}`)
     .then(response => {
       if (!response.ok) {
