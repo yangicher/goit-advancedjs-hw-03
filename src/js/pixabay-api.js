@@ -12,11 +12,11 @@ export function loadImages(query) {
 
   return axios.get(BASE_URL, { params: searchParams })
     .then(response => {
-      const data = response.data;
-      if (data.hits.length === 0) {
+      const { hits } = response.data;
+      if (hits.length === 0) {
         throw new Error('No images found');
       }
-      return data;
+      return hits;
     })
     .catch(error => {
       console.error('Error loading images:', error.message || error);
