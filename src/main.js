@@ -2,15 +2,24 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import { loadImages } from './js/pixabay-api.js';
 import { clearGallery, hideLoader, renderGallery, showLoader } from './js/render-functions.js';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const form = document.querySelector('.form');
+
+let lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 function toastErrorOptions(message) {
   return ({
     progressBar: false,
     position: 'topRight',
     animateInside: false,
-    message: `${message}`
+    message: `${message}`,
+    color: '#EF4040',
+    maxWidth: '432px'
   });
 }
 
@@ -36,6 +45,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     renderGallery(images);
+    lightbox.refresh();
   } catch (error) {
     iziToast.show(toastErrorOptions('Something went wrong. Please try again later.'));
   } finally {
