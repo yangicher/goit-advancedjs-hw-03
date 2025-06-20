@@ -10,17 +10,18 @@ export function loadImages(query) {
     safesearch: 'true',
   });
 
-  return axios
-    .get(`${BASE_URL}?${params}`)
+  return fetch(`${BASE_URL}?${params}`)
     .then(response => {
-      const { hits } = response.data;
-      if (!hits.length) {
-        throw new Error('No images found');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-      return hits;
+      return response.json();
+    })
+    .then(data => {
+      return data.hits;
     })
     .catch(error => {
-      console.error('Error loading images:', error.message || error);
+      console.error('Error fetching images:', error.message || error);
       throw error;
     });
 }
