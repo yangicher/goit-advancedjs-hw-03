@@ -7,13 +7,14 @@ export function loadImages(query) {
     q: query,
     image_type: 'photo',
     orientation: 'horizontal',
-    safesearch: 'true'
+    safesearch: 'true',
   };
 
-  return axios.get(BASE_URL, { params: searchParams })
+  return axios
+    .get(BASE_URL, { params: searchParams })
     .then(response => {
       const { hits } = response.data;
-      if (hits.length === 0) {
+      if (!hits.length) {
         throw new Error('No images found');
       }
       return hits;
