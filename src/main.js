@@ -1,6 +1,6 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-import { loadImages } from './js/pixabay-api.js?v=3';
+import { loadImages } from './js/pixabay-api.js';
 import { clearGallery, hideLoader, renderGallery, showLoader } from './js/render-functions.js';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
