@@ -10,6 +10,9 @@ export function loadImages(query) {
     safesearch: 'true',
   };
 
+  console.log(BASE_URL);
+  console.log(searchParams);
+
   return axios
     .get(BASE_URL, { params: searchParams })
     .then(response => {
