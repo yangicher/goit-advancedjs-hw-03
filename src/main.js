@@ -27,7 +27,7 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const query = form.elements.query.value.trim();
-
+  form.reset();
   if (!query) {
     iziToast.show(toastErrorOptions('Please enter a search query!'));
     return;
